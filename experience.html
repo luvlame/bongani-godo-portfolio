@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Bongani Godo — Experience & Qualifications">
+    <title>Experience | Bongani Godo</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* ========================================
+           EXPERIENCE SECTION STYLES
+        ======================================== */
+        .exp-section {
+            position: relative;
+            z-index: 2;
+            min-height: 100vh;
+            padding: 140px 40px 100px;
+        }
+
+        .exp-header {
+            margin-bottom: 50px;
+        }
+
+        .exp-subtitle {
+            font-size: 11px;
+            letter-spacing: 0.16em;
+            color: rgba(255, 255, 255, 0.70);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .exp-title {
+            font-size: clamp(2.2rem, 5vmin, 4rem);
+            font-weight: bold;
+            letter-spacing: -0.02em;
+            color: #ffffff;
+            margin-bottom: 20px;
+        }
+
+        .exp-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            width: 100%;
+        }
+
+        /* Glassmorphic Panel Base */
+        .exp-panel {
+            background: linear-gradient(
+                135deg,
+                rgba(255, 255, 255, 0.12),
+                rgba(255, 255, 255, 0.03)
+            );
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 16px;
+            padding: 32px;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .exp-panel:hover {
+            border-color: rgba(0, 255, 65, 0.5);
+            box-shadow: 0 15px 35px rgba(0, 255, 65, 0.12);
+        }
+
+        .panel-heading {
+            font-size: 18px;
+            font-weight: bold;
+            color: #ffffff;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .panel-heading::before {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: #00ff41;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #00ff41;
+        }
+
+        /* Timeline Items */
+        .timeline-card {
+            position: relative;
+            padding-left: 24px;
+            border-left: 2px solid rgba(255, 255, 255, 0.15);
+            margin-bottom: 30px;
+        }
+
+        .timeline-card:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-card::before {
+            content: '';
+            position: absolute;
+            left: -6px;
+            top: 4px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #00ff41;
+            box-shadow: 0 0 10px rgba(0, 255, 65, 0.8);
+        }
+
+        .role-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        .company-name {
+            font-size: 13px;
+            color: #00ff41;
+            font-weight: 600;
+            margin-top: 2px;
+        }
+
+        .timeline-date {
+            font-size: 11px;
+            letter-spacing: 0.05em;
+            color: rgba(255, 255, 255, 0.5);
+            margin: 4px 0 12px;
+            text-transform: uppercase;
+        }
+
+        .role-bullets {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .role-bullets li {
+            position: relative;
+            font-size: 13px;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.78);
+            margin-bottom: 8px;
+            padding-left: 14px;
+        }
+
+        .role-bullets li::before {
+            content: '›';
+            position: absolute;
+            left: 0;
+            color: #00ff41;
+            font-weight: bold;
+        }
+
+        /* Certifications Grid */
+        .certs-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+
+        .cert-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 10px;
+            padding: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cert-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .cert-badge {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            padding: 4px 10px;
+            border-radius: 12px;
+            text-transform: uppercase;
+        }
+
+        .badge-completed {
+            color: #00ff41;
+            background: rgba(0, 255, 65, 0.12);
+            border: 1px solid rgba(0, 255, 65, 0.3);
+        }
+
+        .badge-progress {
+            color: #ffb703;
+            background: rgba(255, 183, 3, 0.12);
+            border: 1px solid rgba(255, 183, 3, 0.3);
+        }
+
+        /* Availability Pill */
+        .availability-box {
+            margin-top: 30px;
+            background: rgba(0, 255, 65, 0.05);
+            border: 1px dashed rgba(0, 255, 65, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .avail-title {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            color: #00ff41;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .avail-text {
+            font-size: 13px;
+            line-height: 1.5;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        @media (max-width: 900px) {
+            .exp-section {
+                padding: 120px 20px 80px;
+            }
+
+            .exp-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="page-transition-overlay">
+        <div class="pt-curtain"></div>
+        <div class="pt-logo">
+            
+            <span class="pt-logo-text">Bongani Godo</span>
+        </div>
+    </div>
+
+    <!-- MATRIX RAIN BACKGROUND -->
+    <div class="matrix-container">
+      <div class="matrix-pattern">
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+      </div>
+      <div class="matrix-pattern">
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+      </div>
+    </div>
+
+    <!-- NAVIGATION -->
+    <header class="site-header">
+        <div class="nav-container">
+
+            <a href="index.html" class="logo">
+                BONGANI GODO
+            </a>
+
+            <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false">
+                MENU
+            </button>
+
+            <nav class="site-nav" aria-label="Main navigation">
+                <ul>
+                    <li class="nav-card">
+                        <a href="index.html">
+                            <span class="nav-number">01</span>
+                            <span class="nav-text">Home</span>
+                            <span class="nav-arrow">↗</span>
+                        </a>
+                    </li>
+                    <li class="nav-card">
+                        <a href="projects.html">
+                            <span class="nav-number">02</span>
+                            <span class="nav-text">Projects</span>
+                            <span class="nav-arrow">↗</span>
+                        </a>
+                    </li>
+                    <li class="nav-card">
+                        <a href="about.html">
+                            <span class="nav-number">03</span>
+                            <span class="nav-text">About</span>
+                            <span class="nav-arrow">↗</span>
+                        </a>
+                    </li>
+                    <li class="nav-card">
+                        <a href="experience.html">
+                            <span class="nav-number">04</span>
+                            <span class="nav-text">Experience</span>
+                            <span class="nav-arrow">↗</span>
+                        </a>
+                    </li>
+                    <li class="nav-card">
+                        <a href="contact.html">
+                            <span class="nav-number">05</span>
+                            <span class="nav-text">Contact</span>
+                            <span class="nav-arrow">↗</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+        </div>
+    </header>
+
+    <!-- EXPERIENCE CONTENT -->
+    <main>
+        <section class="exp-section">
+            <div class="exp-header">
+                <div class="exp-subtitle">
+                    CAREER & QUALIFICATIONS
+                </div>
+                <h1 class="exp-title">Experience & Education</h1>
+            </div>
+
+            <div class="exp-layout">
+
+                <!-- LEFT COLUMN: WORK EXPERIENCE & CERTIFICATIONS -->
+                <div class="exp-panel">
+                    <h2 class="panel-heading">Work Experience</h2>
+
+                    <div class="timeline-card">
+                        <div class="role-title">Operations Support Assistant</div>
+                        <div class="company-name">RUSH Extreme</div>
+                        <div class="timeline-date">09/2024 – 07/2026</div>
+                        <ul class="role-bullets">
+                            <li>Performed basic troubleshooting of equipment and technical systems, escalating complex issues according to reporting protocols.</li>
+                            <li>Maintained detailed incident and equipment logs, documenting faults, resolutions, and recurring issues.</li>
+                            <li>Collaborated with team members to ensure seamless daily operations, clear communication, and consistent service delivery.</li>
+                        </ul>
+                    </div>
+
+                    <h2 class="panel-heading" style="margin-top: 40px;">Certifications</h2>
+                    <div class="certs-grid">
+                        <div class="cert-card">
+                            <span class="cert-name">Cisco Introduction to Cybersecurity</span>
+                            <span class="cert-badge badge-completed">Verified</span>
+                        </div>
+                        <div class="cert-card">
+                            <span class="cert-name">Security Blue Team: Network Analysis</span>
+                            <span class="cert-badge badge-completed">Verified</span>
+                        </div>
+                        <div class="cert-card">
+                            <span class="cert-name">AWS Certified Cloud Practitioner</span>
+                            <span class="cert-badge badge-progress">In Progress</span>
+                        </div>
+                        <div class="cert-card">
+                            <span class="cert-name">ISC2 Certified in Cybersecurity (CC)</span>
+                            <span class="cert-badge badge-progress">In Progress</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT COLUMN: ACADEMIC HISTORY & DEPLOYMENT FLEXIBILITY -->
+                <div class="exp-panel">
+                    <h2 class="panel-heading">Academic Qualifications</h2>
+
+                    <div class="timeline-card">
+                        <div class="role-title">Diploma in Information Technology</div>
+                        <div class="company-name">Belgium Campus ITversity | Specialization in Cybersecurity</div>
+                        <div class="timeline-date">09/2024 – Present</div>
+                        <ul class="role-bullets">
+                            <li><strong>Weighted Average:</strong> 83.9% | 154 Credits Achieved.</li>
+                            <li><strong>Coursework:</strong> Networking Development, Cybersecurity Fundamentals, Programming Principles, Web Programming, Database Concepts & Development, Systems Design, Project Management, Statistics, Business Communication.</li>
+                        </ul>
+                    </div>
+
+                    <div class="timeline-card">
+                        <div class="role-title">Bachelor of Science in Information Technology</div>
+                        <div class="company-name">Richfield Graduate Institution</div>
+                        <div class="timeline-date">02/2024 – 09/2024 [Part-School]</div>
+                        <ul class="role-bullets">
+                            <li><strong>Coursework:</strong> IT Fundamentals, Communication and Interpersonal Skills.</li>
+                        </ul>
+                    </div>
+
+                    <div class="timeline-card">
+                        <div class="role-title">National Senior Certificate</div>
+                        <div class="company-name">Edenglen High School</div>
+                        <div class="timeline-date">Graduated 11/2022</div>
+                    </div>
+
+                    <!-- AVAILABILITY & DEPLOYMENT STATUS -->
+                    <div class="availability-box">
+                        <div class="avail-title">Operational Capacity & Deployment</div>
+                        <div class="avail-text">
+                            <strong>Status:</strong> Available for full-time/part-time engagement with immediate start capability.<br>
+                            <strong>Flexibility:</strong> Open to Remote, On-Site, or Hybrid work models.
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <div class="hero-footer">
+        <span>Bongani's Turn</span>
+        <span>2026</span>
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>

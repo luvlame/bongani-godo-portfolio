@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Bongani Godo — Projects & Technical Portfolio">
+    <title>Projects | Bongani Godo</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* ========================================
+           PROJECTS SECTION STYLES (Chilly-Snake-91 Theme)
+        ======================================== */
+        .projects-section {
+            position: relative;
+            z-index: 2;
+            min-height: 100vh;
+            padding: 140px 40px 100px;
+        }
+
+        .projects-header {
+            margin-bottom: 50px;
+        }
+
+        .projects-subtitle {
+            font-size: 11px;
+            letter-spacing: 0.16em;
+            color: rgba(255, 255, 255, 0.70);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .projects-title {
+            font-size: clamp(2.2rem, 5vmin, 4rem);
+            font-weight: bold;
+            letter-spacing: -0.02em;
+            color: #ffffff;
+            margin-bottom: 20px;
+        }
+
+        .category-heading {
+            font-size: 22px;
+            font-weight: bold;
+            color: #ffffff;
+            margin: 40px 0 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .category-heading::before {
+            content: '';
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background: #00ff41;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #00ff41;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            width: 100%;
+            perspective: 1200px;
+        }
+
+        /* Chilly-Snake-91 Styled Card Component — with 3D tilt-card interaction */
+        .project-card {
+            position: relative;
+            background: #0d0f12;
+            border: 2px solid #00ff41;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 0 15px rgba(0, 255, 65, 0.25), inset 0 0 15px rgba(0, 255, 65, 0.05);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), border-color 0.3s ease, transform 0.15s ease-out;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            will-change: transform;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #00ff41, transparent);
+            animation: snakeGlow 3s infinite linear;
+            pointer-events: none;
+        }
+
+        /* Shine sweep that tracks the cursor, part of the 3D-card hover effect */
+        .project-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 12px;
+            background: radial-gradient(600px circle at var(--mx, 50%) var(--my, 50%),
+                rgba(0, 255, 65, 0.18), transparent 40%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .project-card:hover {
+            border-color: #39ff14;
+            box-shadow:
+                0 2px 4px rgba(0, 255, 65, 0.20),
+                0 8px 14px rgba(0, 255, 65, 0.22),
+                0 20px 34px rgba(0, 0, 0, 0.55),
+                inset 0 0 20px rgba(0, 255, 65, 0.15);
+        }
+
+        .project-card:hover::after {
+            opacity: 1;
+        }
+
+        .project-card .card-link,
+        .project-card h3,
+        .project-card p,
+        .project-card .tech-stack {
+            transform: translateZ(30px);
+        }
+
+        .card-tag {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            color: #00ff41;
+            text-shadow: 0 0 8px rgba(0, 255, 65, 0.6);
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #ffffff;
+            margin-bottom: 12px;
+        }
+
+        .card-description {
+            font-size: 13px;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 20px;
+        }
+
+        /* Tech Stack Badges */
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+
+        .tech-badge {
+            font-size: 11px;
+            font-weight: 600;
+            color: #00ff41;
+            background: rgba(0, 255, 65, 0.08);
+            border: 1px solid rgba(0, 255, 65, 0.3);
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+
+        /* Action Buttons */
+        .card-link {
+            align-self: flex-start;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            color: #0d0f12;
+            background: #00ff41;
+            padding: 10px 18px;
+            border-radius: 6px;
+            text-decoration: none;
+            box-shadow: 0 0 10px rgba(0, 255, 65, 0.4);
+            transition: all 0.25s ease;
+        }
+
+        .card-link:hover {
+            background: #ffffff;
+            color: #0d0f12;
+            box-shadow: 0 0 18px rgba(255, 255, 255, 0.8);
+            transform: translateY(-2px);
+        }
+
+        @keyframes snakeGlow {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        @media (max-width: 900px) {
+            .projects-section {
+                padding: 120px 20px 80px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="page-transition-overlay">
+        <div class="pt-curtain"></div>
+        <div class="pt-logo">
+            
+            <span class="pt-logo-text">Bongani Godo</span>
+        </div>
+    </div>
+
+    <!-- MATRIX RAIN BACKGROUND -->
+    <div class="matrix-container">
+      <div class="matrix-pattern">
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+      </div>
+      <div class="matrix-pattern">
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+      </div>
+    </div>
+
+    <!-- NAVIGATION -->
+    <header class="site-header">
+        <div class="nav-container">
+
+            <a href="index.html" class="logo">
+                BONGANI GODO
+            </a>
+
+            <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false">
+                MENU
+            </button>
+
+            <nav class="site-nav" aria-label="Main navigation">
+                <ul>
+                    <li class="nav-card">
+                        <a href="index.html">
+                            <span class="nav-number">01</span>
+                            <span class="nav-text">Home</span>
+                            <span class="nav-arrow">↗</span>
+                        </a>
+                    </li>
+                    <li class="nav-card">
+                        <a href="projects.html">
+                            <span class="nav-number">02</span>
+                            <span class="nav-text">Projects</span>
+                            <span class="nav-arrow">↗</span>
+                        </a>
+                    </li>
+                    <li class="nav-card">
+                        <a href="about.html">
+                            <span class="nav-number">03</span>
+                            <span class="nav-text">About</span>
+                            <span class="nav-arrow">↗</span>
+                        </a>
+                    </li>
+                    <li class="nav-card">
+                        <a href="experience.html">
+                            <span class="nav-number">04</span>
+                            <span class="nav-text">Experience</span>
+                            <span class="nav-arrow">↗</span>
+                        </a>
+                    </li>
+                    <li class="nav-card">
+                        <a href="contact.html">
+                            <span class="nav-number">05</span>
+                            <span class="nav-text">Contact</span>
+                            <span class="nav-arrow">↗</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+        </div>
+    </header>
+
+    <!-- PROJECTS CONTENT -->
+    <main>
+        <section class="projects-section">
+            <div class="projects-header">
+                <div class="projects-subtitle">
+                    TECHNICAL PORTFOLIO
+                </div>
+                <h1 class="projects-title">My Projects</h1>
+            </div>
+
+            <!-- CATEGORY 1: CYBERSECURITY & NETWORKING -->
+            <h2 class="category-heading">Cybersecurity & Networking</h2>
+            <div class="projects-grid">
+
+                <!-- 1. Campus Network Design -->
+                <div class="project-card">
+                    <div>
+                        <div class="card-tag">Network Architecture</div>
+                        <h3 class="card-title">1. Campus Network Design</h3>
+                        <p class="card-description">
+                            Designed a comprehensive campus network using Cisco Packet Tracer, managing network topology, hardware devices, subnets, IP addressing, and full routing connectivity.
+                        </p>
+                        <div class="tech-stack">
+                            <span class="tech-badge">Cisco Packet Tracer</span>
+                            <span class="tech-badge">Networking</span>
+                            <span class="tech-badge">IP Addressing</span>
+                            <span class="tech-badge">2024</span>
+                        </div>
+                    </div>
+                    <a href="https://github.com/luvlame" target="_blank" rel="noopener noreferrer" class="card-link">
+                        View Details ↗
+                    </a>
+                </div>
+
+                <!-- 2. Firewall & VPN Security Lab -->
+                <div class="project-card">
+                    <div>
+                        <div class="card-tag">Security & Traffic Analysis</div>
+                        <h3 class="card-title">2. Firewall & VPN Security Lab</h3>
+                        <p class="card-description">
+                            Configured iptables firewall rules, OpenVPN tunnels, and secure SSH channels across Kali Linux and Ubuntu systems while inspecting network packet traffic with Wireshark.
+                        </p>
+                        <div class="tech-stack">
+                            <span class="tech-badge">Linux</span>
+                            <span class="tech-badge">iptables</span>
+                            <span class="tech-badge">OpenVPN</span>
+                            <span class="tech-badge">SSH</span>
+                            <span class="tech-badge">Wireshark</span>
+                        </div>
+                    </div>
+                    <a href="https://github.com/luvlame" target="_blank" rel="noopener noreferrer" class="card-link">
+                        View Details ↗
+                    </a>
+                </div>
+
+                <!-- 3. Ubuntu IT Support Services -->
+                <div class="project-card">
+                    <div>
+                        <div class="card-tag">Cloud & Systems Support</div>
+                        <h3 class="card-title">3. Ubuntu IT Support Services</h3>
+                        <p class="card-description">
+                            Group project executing Ubuntu administration, networking configuration tasks, automated Bash scripting, and a cloud-based environment deployment using DistroSea.
+                        </p>
+                        <div class="tech-stack">
+                            <span class="tech-badge">Ubuntu</span>
+                            <span class="tech-badge">Linux</span>
+                            <span class="tech-badge">Bash</span>
+                            <span class="tech-badge">Networking</span>
+                            <span class="tech-badge">DistroSea</span>
+                        </div>
+                    </div>
+                    <a href="https://github.com/luvlame" target="_blank" rel="noopener noreferrer" class="card-link">
+                        View Details ↗
+                    </a>
+                </div>
+
+            </div>
+
+            <!-- CATEGORY 2: SYSTEMS ADMINISTRATION -->
+            <h2 class="category-heading">Systems Administration</h2>
+            <div class="projects-grid">
+
+                <!-- 4. EduTech Solutions -->
+                <div class="project-card">
+                    <div>
+                        <div class="card-tag">Enterprise Systems</div>
+                        <h3 class="card-title">4. EduTech Solutions — Windows Server & Azure</h3>
+                        <p class="card-description">
+                            Group project managing Windows Server 2019 infrastructure, backup policies, security configurations, Azure cloud integrations, and Distributed File System (DFS) management.
+                        </p>
+                        <div class="tech-stack">
+                            <span class="tech-badge">Windows Server 2019</span>
+                            <span class="tech-badge">Azure</span>
+                            <span class="tech-badge">Backup</span>
+                            <span class="tech-badge">DFS</span>
+                        </div>
+                    </div>
+                    <a href="https://github.com/luvlame" target="_blank" rel="noopener noreferrer" class="card-link">
+                        View Details ↗
+                    </a>
+                </div>
+
+                <!-- 5. ModernTech Solutions -->
+                <div class="project-card">
+                    <div>
+                        <div class="card-tag">Automation & Scripting</div>
+                        <h3 class="card-title">5. ModernTech Solutions — PowerShell Administration</h3>
+                        <p class="card-description">
+                            Developed automated PowerShell administration scripts for monitoring Windows system services, file exploration, and directory auditing for a simulated enterprise environment.
+                        </p>
+                        <div class="tech-stack">
+                            <span class="tech-badge">PowerShell</span>
+                            <span class="tech-badge">Windows</span>
+                            <span class="tech-badge">Automation</span>
+                            <span class="tech-badge">Monitoring</span>
+                        </div>
+                    </div>
+                    <a href="https://github.com/luvlame" target="_blank" rel="noopener noreferrer" class="card-link">
+                        View Details ↗
+                    </a>
+                </div>
+
+                <!-- 6. Dell OptiPlex 780 Hardware Upgrade -->
+                <div class="project-card">
+                    <div>
+                        <div class="card-tag">Hardware Maintenance</div>
+                        <h3 class="card-title">6. Dell OptiPlex 780 Hardware Upgrade</h3>
+                        <p class="card-description">
+                            Hands-on hardware upgrading project involving RAM expansion,  component physical installation, system diagnostics, and Windows 7 OS optimization.
+                        </p>
+                        <div class="tech-stack">
+                            <span class="tech-badge">Hardware</span>
+                            <span class="tech-badge">RAM Upgrades</span>
+                            <span class="tech-badge">Windows 7</span>
+                            <span class="tech-badge">Troubleshooting</span>
+                        </div>
+                    </div>
+                    <a href="https://github.com/luvlame" target="_blank" rel="noopener noreferrer" class="card-link">
+                        View Details ↗
+                    </a>
+                </div>
+
+            </div>
+
+            <!-- CATEGORY 3: SOFTWARE DEVELOPMENT, DATABASES & IOT -->
+            <h2 class="category-heading">Software Development, Databases & IoT</h2>
+            <div class="projects-grid">
+
+                <!-- 7. Umsholozi Sports Management Database -->
+                <div class="project-card">
+                    <div>
+                        <div class="card-tag">Database Engineering</div>
+                        <h3 class="card-title">7. Umsholozi Sports Management Database</h3>
+                        <p class="card-description">
+                            Engineered a SQL Server relational database handling sports programs, member enrollment, coach assignments, training sessions, attendance tracking, and automated payment processing.
+                        </p>
+                        <div class="tech-stack">
+                            <span class="tech-badge">SQL Server</span>
+                            <span class="tech-badge">T-SQL</span>
+                            <span class="tech-badge">Database Design</span>
+                            <span class="tech-badge">Constraints</span>
+                        </div>
+                    </div>
+                    <a href="https://github.com/luvlame" target="_blank" rel="noopener noreferrer" class="card-link">
+                        View Details ↗
+                    </a>
+                </div>
+
+                <!-- 8. IoT Node-RED & MQTT System -->
+                <div class="project-card">
+                    <div>
+                        <div class="card-tag">IoT & Messaging</div>
+                        <h3 class="card-title">8. IoT Node-RED & MQTT System</h3>
+                        <p class="card-description">
+                            Constructed an IoT system leveraging Node-RED and MQTT protocols in Tinkercad to simulate real-time sensor device messaging, data payloads, and workflow automation.
+                        </p>
+                        <div class="tech-stack">
+                            <span class="tech-badge">Node-RED</span>
+                            <span class="tech-badge">MQTT</span>
+                            <span class="tech-badge">Tinkercad</span>
+                            <span class="tech-badge">IoT</span>
+                        </div>
+                    </div>
+                    <a href="https://github.com/luvlame" target="_blank" rel="noopener noreferrer" class="card-link">
+                        View Details ↗
+                    </a>
+                </div>
+
+                <!-- 9. Thuto High AI Career Chatbot -->
+                <div class="project-card">
+                    <div>
+                        <div class="card-tag">AI & Software</div>
+                        <h3 class="card-title">9. Thuto High AI Career Chatbot</h3>
+                        <p class="card-description">
+                            Developed a career guidance chatbot system designed to assist students and high school learners with tech-assisted guidance, career exploration, and subject mapping.
+                        </p>
+                        <div class="tech-stack">
+                            <span class="tech-badge">AI</span>
+                            <span class="tech-badge">Chatbots</span>
+                            <span class="tech-badge">Software Dev</span>
+                            <span class="tech-badge">2025</span>
+                        </div>
+                    </div>
+                    <a href="https://github.com/luvlame" target="_blank" rel="noopener noreferrer" class="card-link">
+                        View Details ↗
+                    </a>
+                </div>
+
+            </div>
+
+            <!-- CATEGORY 4: PORTFOLIO & WEB DEVELOPMENT -->
+            <h2 class="category-heading">Portfolio & Web Development</h2>
+            <div class="projects-grid">
+
+                <!-- 10. Personal Cybersecurity Portfolio Website -->
+                <div class="project-card">
+                    <div>
+                        <div class="card-tag">Frontend & Web Ops</div>
+                        <h3 class="card-title">10. This Website</h3>
+                        <p class="card-description">
+                            Designed, built and deployed this custom portfolio website to showcase IT capabilities, projects, academic credentials, and contact details featuring a dark cybersecurity aesthetic and animated Matrix rain.
+                        </p>
+                        <div class="tech-stack">
+                            <span class="tech-badge">HTML</span>
+                            <span class="tech-badge">CSS</span>
+                            <span class="tech-badge">JavaScript</span>
+                            <span class="tech-badge">Netlify</span>
+                            <span class="tech-badge">GitHub</span>
+                        </div>
+                    </div>
+                    <a href="index.html" class="card-link">
+                        View Portfolio ↗
+                    </a>
+                </div>
+
+            </div>
+
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <div class="hero-footer">
+        <span>Bongani's Turn</span>
+        <span>2026</span>
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>

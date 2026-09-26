@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Bongani Godo — About Me">
+    <title>About | Bongani Godo</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* ========================================
+           ABOUT SECTION STYLES
+        ======================================== */
+        .about-section {
+            position: relative;
+            z-index: 2;
+            min-height: 100vh;
+            padding: 140px 40px 100px;
+        }
+
+        .about-header {
+            margin-bottom: 50px;
+        }
+
+        .about-subtitle {
+            font-size: 11px;
+            letter-spacing: 0.16em;
+            color: rgba(255, 255, 255, 0.70);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .about-title {
+            font-size: clamp(2.2rem, 5vmin, 4rem);
+            font-weight: bold;
+            letter-spacing: -0.02em;
+            color: #ffffff;
+            margin-bottom: 20px;
+        }
+
+        .about-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            width: 100%;
+        }
+
+        /* Glassmorphic Panel Base */
+        .about-panel {
+            background: linear-gradient(
+                135deg,
+                rgba(255, 255, 255, 0.12),
+                rgba(255, 255, 255, 0.03)
+            );
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 16px;
+            padding: 32px;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+            transition: border-color 0.4s ease, box-shadow 0.4s ease,
+                        filter 0.45s cubic-bezier(0.25, 0.8, 0.25, 1),
+                        opacity 0.45s cubic-bezier(0.25, 0.8, 0.25, 1),
+                        transform 0.45s cubic-bezier(0.25, 0.8, 0.25, 1);
+            will-change: filter, opacity, transform;
+        }
+
+        .about-panel:hover {
+            border-color: rgba(0, 255, 65, 0.5);
+            box-shadow: 0 15px 35px rgba(0, 255, 65, 0.12);
+        }
+
+        /* SECTION-FOCUS HOVER EFFECT
+           When one panel is hovered, every other panel
+           on the page blurs, dims and recedes slightly —
+           the hovered one stays sharp and lifts forward. */
+        .about-layout.has-focus .about-panel {
+            filter: blur(0px);
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+
+        .about-layout.has-focus .about-panel:not(.is-focused) {
+            filter: blur(7px) saturate(0.7);
+            opacity: 0.35;
+            transform: scale(0.97);
+            border-color: rgba(255, 255, 255, 0.10);
+            box-shadow: none;
+            pointer-events: none;
+        }
+
+        .about-layout.has-focus .about-panel.is-focused {
+            transform: scale(1.015) translateY(-4px);
+            border-color: #00ff41;
+            box-shadow: 0 20px 45px rgba(0, 255, 65, 0.18), 0 0 0 1px rgba(0, 255, 65, 0.15);
+            z-index: 3;
+        }
+
+        .panel-heading {
+            font-size: 18px;
+            font-weight: bold;
+            color: #ffffff;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .panel-heading::before {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: #00ff41;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #00ff41;
+        }
+
+        .bio-text {
+            font-size: 15px;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 20px;
+        }
+
+        /* Skills Pill Container */
+        .skills-group {
+            margin-bottom: 25px;
+        }
+
+        .skills-group-title {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            color: #00ff41;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .skills-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .skill-pill {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.85);
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 6px 12px;
+            border-radius: 6px;
+        }
+
+        /* Timeline Items for Education / Certs */
+        .timeline-item {
+            position: relative;
+            padding-left: 20px;
+            border-left: 2px solid rgba(255, 255, 255, 0.15);
+            margin-bottom: 20px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -5px;
+            top: 4px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #00ff41;
+        }
+
+        .timeline-title {
+            font-size: 15px;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        .timeline-meta {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 6px;
+        }
+
+        .timeline-desc {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.75);
+            line-height: 1.5;
+        }
+
+        /* Social / Profile Links */
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .social-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 10px 18px;
+            border-radius: 8px;
+            transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+            text-decoration: none;
+        }
+
+        .social-btn:hover {
+            background: rgba(0, 255, 65, 0.15);
+            border-color: #00ff41;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 900px) {
+            .about-section {
+                padding: 120px 20px 80px;
+            }
+
+            .about-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="page-transition-overlay">
+        <div class="pt-curtain"></div>
+        <div class="pt-logo">
+            
+            <span class="pt-logo-text">Bongani Godo</span>
+        </div>
+    </div>
+
+    <!-- MATRIX RAIN BACKGROUND -->
+    <div class="matrix-container">
+      <div class="matrix-pattern">
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+      </div>
+      <div class="matrix-pattern">
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+      </div>
+    </div>
+
+    <!-- NAVIGATION -->
+    <header class="site-header">
+        <div class="nav-container">
+
+            <a href="index.html" class="logo">
+                BONGANI GODO
+            </a>
+
+            <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false">
+                MENU
+            </button>
+
+            <nav class="site-nav" aria-label="Main navigation">
+                <ul>
+                    <li class="nav-card">
+                        <a href="index.html">
+                            <span class="nav-number">01</span>
+                            <span class="nav-text">Home</span>
+                            <span class="nav-arrow">↗</span>
+                        </a>
+                    </li>
+                    <li class="nav-card">
+                        <a href="projects.html">
+                            <span class="nav-number">02</span>
+                            <span class="nav-text">Projects</span>
+                            <span class="nav-arrow">↗</span>
+                        </a>
+                    </li>
+                    <li class="nav-card">
+                        <a href="about.html">
+                            <span class="nav-number">03</span>
+                            <span class="nav-text">About</span>
+                            <span class="nav-arrow">↗</span>
+                        </a>
+                    </li>
+                    <li class="nav-card">
+                        <a href="experience.html">
+                            <span class="nav-number">04</span>
+                            <span class="nav-text">Experience</span>
+                            <span class="nav-arrow">↗</span>
+                        </a>
+                    </li>
+                    <li class="nav-card">
+                        <a href="contact.html">
+                            <span class="nav-number">05</span>
+                            <span class="nav-text">Contact</span>
+                            <span class="nav-arrow">↗</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+        </div>
+    </header>
+
+    <!-- ABOUT CONTENT -->
+    <main>
+        <section class="about-section">
+            <div class="about-header">
+                <div class="about-subtitle">
+                    PROFILE & BACKGROUND
+                </div>
+                <h1 class="about-title">About Me</h1>
+            </div>
+
+            <div class="about-layout">
+
+                <!-- LEFT COLUMN: BIOGRAPHY & SOCIAL LINKS -->
+                <div class="about-panel">
+                    <h2 class="panel-heading">Biography</h2>
+                    <p class="bio-text">
+                        I am an Information Technology practitioner and student based in Gauteng, South Africa, specializing in cybersecurity, secure software engineering, and network infrastructure.
+                    </p>
+                    <p class="bio-text">
+                        My work focuses on bridging web application development with offensive and defensive security practices—ranging from building relational database architectures and interactive front-end environments to simulating vulnerability scenarios and hardening systems.
+                    </p>
+
+                    <h2 class="panel-heading" style="margin-top: 30px;">Connect & Profiles</h2>
+                    <div class="social-links">
+                        <a href="https://github.com/luvlame" target="_blank" rel="noopener noreferrer" class="social-btn">
+                            GitHub ↗
+                        </a>
+                        <a href="https://www.linkedin.com/in/bonganigodo/" target="_blank" rel="noopener noreferrer" class="social-btn">
+                            LinkedIn ↗
+                        </a>
+                    </div>
+                </div>
+
+                <!-- RIGHT COLUMN: SKILLS & ACADEMICS -->
+                <div class="about-panel">
+                    <h2 class="panel-heading">Technical Expertise</h2>
+
+                    <div class="skills-group">
+                        <div class="skills-group-title">Languages & Web</div>
+                        <div class="skills-pills">
+                            <span class="skill-pill">PHP</span>
+                            <span class="skill-pill">Python</span>
+                            <span class="skill-pill">JavaScript</span>
+                            <span class="skill-pill">C++</span>
+                            <span class="skill-pill">C#</span>
+                            <span class="skill-pill">Java</span>
+                            <span class="skill-pill">HTML5 / CSS3</span>
+                        </div>
+                    </div>
+
+                    <div class="skills-group">
+                        <div class="skills-group-title">Security & Infrastructure</div>
+                        <div class="skills-pills">
+                            <span class="skill-pill">Linux Systems</span>
+                            <span class="skill-pill">Network Security</span>
+                            <span class="skill-pill">Firewall & VPN</span>
+                            <span class="skill-pill">Snort IDS</span>
+                            <span class="skill-pill">Memory Exploitation</span>
+                            <span class="skill-pill">Cisco Packet Tracer</span>
+                        </div>
+                    </div>
+
+                    <div class="skills-group">
+                        <div class="skills-group-title">Database & Cloud</div>
+                        <div class="skills-pills">
+                            <span class="skill-pill">MySQL / SQL</span>
+                            <span class="skill-pill">Relational Schema Design</span>
+                            <span class="skill-pill">Git / GitHub</span>
+                        </div>
+                    </div>
+
+                    <h2 class="panel-heading" style="margin-top: 30px;">Education & Training</h2>
+
+                    <div class="timeline-item">
+                        <div class="timeline-title">Diploma in Information Technology</div>
+                        <div class="timeline-meta">Belgium Campus iTversity | Specialization in Cybersecurity</div>
+                        <div class="timeline-desc">Focusing on secure systems, network administration, database development, and enterprise IT concepts.</div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-title">Cybersecurity Training & Certifications</div>
+                        <div class="timeline-meta">Online Certifications and ShortCourses </div>
+                        <div class="timeline-desc">Completed Cybersecurity  Certs and short courses and ongoing certification pathways in systems security.</div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <div class="hero-footer">
+        <span>Bongani's Turn</span>
+        <span>2026</span>
+    </div>
+
+    <script src="script.js"></script>
+
+    <script>
+        /* ========================================
+           ABOUT PAGE — SECTION-FOCUS BLUR EFFECT
+           Hovering a panel blurs/dims every sibling
+           panel; moving off restores everything.
+        ======================================== */
+        document.addEventListener("DOMContentLoaded", () => {
+            const layout = document.querySelector(".about-layout");
+            const panels = document.querySelectorAll(".about-panel");
+
+            if (!layout || !panels.length) return;
+
+            panels.forEach(panel => {
+                panel.addEventListener("mouseenter", () => {
+                    layout.classList.add("has-focus");
+                    panel.classList.add("is-focused");
+                });
+
+                panel.addEventListener("mouseleave", () => {
+                    layout.classList.remove("has-focus");
+                    panel.classList.remove("is-focused");
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>

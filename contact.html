@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Bongani Godo — Contact Information">
+    <title>Contact | Bongani Godo</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* ========================================
+           CONTACT SECTION STYLES
+        ======================================== */
+        .contact-section {
+            position: relative;
+            z-index: 2;
+            min-height: 100vh;
+            padding: 140px 40px 100px;
+        }
+
+        .contact-header {
+            margin-bottom: 50px;
+        }
+
+        .contact-subtitle {
+            font-size: 11px;
+            letter-spacing: 0.16em;
+            color: rgba(255, 255, 255, 0.70);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .contact-title {
+            font-size: clamp(2.2rem, 5vmin, 4rem);
+            font-weight: bold;
+            letter-spacing: -0.02em;
+            color: #ffffff;
+            margin-bottom: 20px;
+        }
+
+        .contact-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            width: 100%;
+        }
+
+        /* Glassmorphic Panel Base */
+        .contact-panel {
+            background: linear-gradient(
+                135deg,
+                rgba(255, 255, 255, 0.12),
+                rgba(255, 255, 255, 0.03)
+            );
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 16px;
+            padding: 32px;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .contact-panel:hover {
+            border-color: rgba(0, 255, 65, 0.5);
+            box-shadow: 0 15px 35px rgba(0, 255, 65, 0.12);
+        }
+
+        .panel-heading {
+            font-size: 18px;
+            font-weight: bold;
+            color: #ffffff;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .panel-heading::before {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: #00ff41;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #00ff41;
+        }
+
+        /* Contact Details List */
+        .info-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .info-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .info-label {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            color: #00ff41;
+            text-transform: uppercase;
+        }
+
+        .info-value {
+            font-size: 15px;
+            color: #ffffff;
+            text-decoration: none;
+            transition: color 0.25s ease;
+        }
+
+        a.info-value:hover {
+            color: #00ff41;
+        }
+
+        /* Interactive Contact Form */
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .form-group label {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            color: rgba(255, 255, 255, 0.7);
+            text-transform: uppercase;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-size: 14px;
+            color: #ffffff;
+            outline: none;
+            transition: border-color 0.25s ease, background 0.25s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: #00ff41;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 110px;
+        }
+
+        .submit-btn {
+            align-self: flex-start;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            color: #000000;
+            background: #00ff41;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px rgba(0, 255, 65, 0.5);
+        }
+
+        /* Profile Links */
+        .social-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .social-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 8px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background 0.25s ease, border-color 0.25s ease;
+        }
+
+        .social-btn:hover {
+            background: rgba(0, 255, 65, 0.15);
+            border-color: #00ff41;
+        }
+
+        @media (max-width: 900px) {
+            .contact-section {
+                padding: 120px 20px 80px;
+            }
+
+            .contact-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="page-transition-overlay">
+        <div class="pt-curtain"></div>
+        <div class="pt-logo">
+            <svg viewBox="0 0 170 170" aria-hidden="true">
+                
+            <span class="pt-logo-text">Bongani Godo</span>
+        </div>
+    </div>
+
+    <!-- MATRIX RAIN BACKGROUND -->
+    <div class="matrix-container">
+      <div class="matrix-pattern">
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+      </div>
+      <div class="matrix-pattern">
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+        <div class="matrix-column"></div>
+      </div>
+    </div>
+
+    <!-- NAVIGATION -->
+    <header class="site-header">
+        <div class="nav-container">
+
+            <a href="index.html" class="logo">
+                BONGANI GODO
+            </a>
+
+            <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false">
+                MENU
+            </button>
+
+            <nav class="site-nav" aria-label="Main navigation">
+                <ul>
+                    <li class="nav-card">
+                        <a href="index.html">
+                            <span class="nav-number">01</span>
+                            <span class="nav-text">Home</span>
+                            <span class="nav-arrow">↗</span>
+                        </a>
+                    </li>
+                    <li class="nav-card">
+                        <a href="projects.html">
+                            <span class="nav-number">02</span>
+                            <span class="nav-text">Projects</span>
+                            <span class="nav-arrow">↗</span>
+                        </a>
+                    </li>
+                    <li class="nav-card">
+                        <a href="about.html">
+                            <span class="nav-number">03</span>
+                            <span class="nav-text">About</span>
+                            <span class="nav-arrow">↗</span>
+                        </a>
+                    </li>
+                    <li class="nav-card">
+                        <a href="experience.html">
+                            <span class="nav-number">04</span>
+                            <span class="nav-text">Experience</span>
+                            <span class="nav-arrow">↗</span>
+                        </a>
+                    </li>
+                    <li class="nav-card">
+                        <a href="contact.html">
+                            <span class="nav-number">05</span>
+                            <span class="nav-text">Contact</span>
+                            <span class="nav-arrow">↗</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+        </div>
+    </header>
+
+    <!-- CONTACT CONTENT -->
+    <main>
+        <section class="contact-section">
+            <div class="contact-header">
+                <div class="contact-subtitle">
+                    GET IN TOUCH
+                </div>
+                <h1 class="contact-title">Contact</h1>
+            </div>
+
+            <div class="contact-layout">
+
+                <!-- LEFT COLUMN: CONTACT DETAILS & PROFILES -->
+                <div class="contact-panel">
+                    <h2 class="panel-heading">Direct Channels</h2>
+
+                    <div class="info-list">
+                        <div class="info-item">
+                            <span class="info-label">Email Address</span>
+                            <a href="mailto:izayagodo@gmail.com" class="info-value">izayagodo@gmail.com</a>
+                        </div>
+
+                        <div class="info-item">
+                            <span class="info-label">Phone Number</span>
+                            <a href="tel:+27714286450" class="info-value">+27 71 428 6450</a>
+                        </div>
+
+                        <div class="info-item">
+                            <span class="info-label">Location</span>
+                            <span class="info-value">Eastleigh, Edenvale, Gauteng, 1609</span>
+                        </div>
+
+                        <div class="info-item">
+                            <span class="info-label">Deployment Flexibility</span>
+                            <span class="info-value">Remote, On-Site, or Hybrid</span>
+                        </div>
+
+                        <div class="info-item" style="margin-top: 10px;">
+                            <span class="info-label">Profiles & Repositories</span>
+                            <div class="social-buttons">
+                                <a href="https://github.com/luvlame" target="_blank" rel="noopener noreferrer" class="social-btn">
+                                    GitHub ↗
+                                </a>
+                                <a href="https://www.linkedin.com/in/bonganigodo/" target="_blank" rel="noopener noreferrer" class="social-btn">
+                                    LinkedIn ↗
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT COLUMN: MESSAGE FORM -->
+                <div class="contact-panel">
+                    <h2 class="panel-heading">Send a Message</h2>
+
+                    <form class="contact-form" action="#" method="POST">
+                        <div class="form-group">
+                            <label for="name">Your Name</label>
+                            <input type="text" id="name" name="name" placeholder="John Doe" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Your Email</label>
+                            <input type="email" id="email" name="email" placeholder="john@example.com" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" name="subject" placeholder="Project Inquiry / Job Opportunity" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" placeholder="Type your message here..." required></textarea>
+                        </div>
+
+                        <button type="submit" class="submit-btn">
+                            Send Message ↗
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <div class="hero-footer">
+        <span>Bongani's Turn</span>
+        <span>2026</span>
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
